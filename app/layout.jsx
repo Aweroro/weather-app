@@ -2,7 +2,6 @@
 
 import './globals.css';
 import NavBar from '../components/NavBar';
-import { Container } from 'reactstrap';
 import Footer from '../components/Footer';
 import React from 'react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';
@@ -10,22 +9,23 @@ import { UserProvider } from '@auth0/nextjs-auth0/client';
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-          crossOrigin="anonymous"
-        />
-        <link rel="stylesheet" href="https://cdn.auth0.com/js/auth0-samples-theme/1.0/css/auth0-theme.min.css" />
-      </head>
       <body>
         <UserProvider>
-          <main id="app" className="d-flex flex-column h-100" data-testid="layout">
+          <div className="relative min-h-screen overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute inset-0 -z-10">
+              <img
+                src="/assets/bg-image1.jpg"
+                alt="Background"
+                className="w-full h-full"
+              />
+            </div>
+          <main id="app" className="flex flex-col min-h-screen">
             <NavBar />
-            <Container className="flex-grow-1 mt-5">{children}</Container>
-            <Footer />
+              <div className="flex-grow mt-5">{children}</div>
+            {/* <Footer /> */}
           </main>
+          </div>
         </UserProvider>
       </body>
     </html>

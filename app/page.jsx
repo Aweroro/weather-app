@@ -1,16 +1,11 @@
 'use client';
-
+import './globals.css';
 import React from 'react';
 
-import Hero from '../components/Hero';
-import Content from '../components/Content';
-
-export default function Index() {
+export default function LandingPage() {
   return (
-    <>
-      <Hero />
-      <hr />
-      <Content />
-    </>
+   <div className='relative overflow-auto'>
+      <h1 className='text-xl'>Hey</h1>
+   </div>
   );
 }
