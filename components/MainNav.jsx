@@ -1,23 +1,47 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import { useUser } from '@auth0/nextjs-auth0/client';
 import PageLink from './PageLink';
 import AnchorLink from './AnchorLink';
-import Image from 'next/image';
 
-const NavBar = () => {
+const MainNavBar = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const { user, isLoading } = useUser();
+  const toggle = () => {
+    setIsOpen(!isOpen);
+    console.log('Menu is open:', !isOpen);
+  }
 
   return (
-    <div className="z-50 relative" data-testid="navbar">
-      <nav className="container mx-auto px-2 flex items-center justify-between py-4">
+    <div className="z-10" data-testid="navbar">
+      <nav className="container mx-auto flex items-center justify-between py-4">
         <div className="flex items-center">
-          <PageLink href="/" className="text-xl md:text-3xl font-bold text-white" testId="navbar-home">
+          <PageLink href="/" className="text-3xl font-bold text-white" testId="navbar-home">
             WeatherApp
           </PageLink>
         </div>
+        <button
+          onClick={toggle}
+          className="md:hidden text-gray-600 focus:outline-none"
+          data-testid="navbar-toggle"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
         <div
+          className={`${
+            isOpen ? 'block' : 'hidden'
+          } absolute top-full left-0 w-full md:static md:block md:w-auto`}
         >
           <ul className="md:flex md:items-center space-y-4 md:space-y-0 md:space-x-6">
+            <li>
+              <PageLink href="/" className="text-white text-lg relative group" testId="navbar-home">
+                Home
+                <span className='absolute -bottom-2 left-0 block w-0 h-0.5 bg-blue-500 transition-all duration-500 group-hover:w-full'></span>
+              </PageLink>
+            </li>
             {user && (
               <>
                 <li>
@@ -41,17 +65,17 @@ const NavBar = () => {
               <li>
                 <AnchorLink
                   href="/api/auth/login"
-                  className="text-white text-lg md:text-2xl font-bold bg-gray-600 px-4 py-2 rounded-md md:hover:bg-blue-700"
+                  className="text-white text-lg bg-gray-600 px-4 py-2 rounded-md hover:bg-blue-700"
                   testId="navbar-login"
                 >
-                  Join
+                  Log in
                 </AnchorLink>
               </li>
             )}
             {user && (
               <li className="relative">
                 <button className="flex items-center space-x-2 focus:outline-none">
-                  <Image
+                  <img
                     src={user.picture}
                     alt="Profile"
                     className="w-10 h-10 rounded-full"
@@ -89,4 +113,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default MainNavBar;
