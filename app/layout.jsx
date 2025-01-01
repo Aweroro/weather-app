@@ -8,7 +8,7 @@ import Image from 'next/image';
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className='fixed w-full'>
+      <body className='lg:fixed w-full'>
         <UserProvider>
           <div className="relative min-h-screen overflow-hidden">
             <div className="absolute inset-0 -z-10">

@@ -82,7 +82,7 @@ export default function LandingPage() {
   }, []);
 
   return (
-    <div className="relative flex flex-col items-center justify-center overflow-auto">
+    <div className="relative py-4 flex flex-col items-center justify-center overflow-auto">
       <h1 className="max-w-xl lg:max-w-4xl mx-4 text-center text-3xl md:text-4xl lg:text-6xl text-white font-semibold">
         Explore the <span className='text-blue-400 font-bold'>weather</span> across different <span className='text-blue-400'>regions</span> and <span className='text-blue-400'>zones</span> of the world.
       </h1>
