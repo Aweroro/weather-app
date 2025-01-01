@@ -10,10 +10,10 @@ interface WeatherData {
   weather: { icon: string; description: string }[];
 }
 
-const randomCities = ['Tokyo', 'Sydney', 'New York', 'Berlin', 'Cape Town', 'Mumbai'];
+const randomCities = ['Tokyo', 'Sydney', 'New York', 'Berlin', 'Cape Town', 'Mumbai', 'Los Angeles', 'London', 'Beijing', 'Hong Kong', 'Cairo', 'Lagos', 'Dubai'];
 
 export default function LandingPage() {
-  const [weather, setWeather] = useState<WeatherData[]>([]);
+  const [weather, setWeather] = useState<(WeatherData | null)[]>([null, null, null]);
   const [error, setError] = useState('');
 
   const fetchWeatherByCity = async (city: string): Promise<WeatherData | null> => {
@@ -59,14 +59,19 @@ export default function LandingPage() {
       const randomCity1 = randomCities[Math.floor(Math.random() * randomCities.length)];
       const randomCity2 = randomCities[Math.floor(Math.random() * randomCities.length)];
 
-      const [userWeather, city1Weather, city2Weather] = await Promise.all([
-        fetchWeatherByLocation(userLocation.lat, userLocation.lon),
-        fetchWeatherByCity(randomCity1),
-        fetchWeatherByCity(randomCity2),
-      ]);
+      const weatherData = [...weather]; // Create a copy to update state incrementally
 
-      // Filter out null values and set the valid weather data
-      setWeather([userWeather, city1Weather, city2Weather].filter((data): data is WeatherData => data !== null));
+      const userWeather = await fetchWeatherByLocation(userLocation.lat, userLocation.lon);
+      if (userWeather) weatherData[0] = userWeather;
+      setWeather([...weatherData]);
+
+      const city1Weather = await fetchWeatherByCity(randomCity1);
+      if (city1Weather) weatherData[1] = city1Weather;
+      setWeather([...weatherData]);
+
+      const city2Weather = await fetchWeatherByCity(randomCity2);
+      if (city2Weather) weatherData[2] = city2Weather;
+      setWeather([...weatherData]);
     } catch (err) {
       setError('Error fetching weather data.');
     }
@@ -78,29 +83,18 @@ export default function LandingPage() {
 
   return (
     <div className="relative flex flex-col items-center justify-center overflow-auto">
-      <h1 className="max-w-xl lg:max-w-4xl mx-4 text-center text-3xl md:text-4xl lg:text-6xl text-white font-bold">
-        Explore the weather across different regions and zones of the world.
+      <h1 className="max-w-xl lg:max-w-4xl mx-4 text-center text-3xl md:text-4xl lg:text-6xl text-white font-semibold">
+        Explore the <span className='text-blue-400 font-bold'>weather</span> across different <span className='text-blue-400'>regions</span> and <span className='text-blue-400'>zones</span> of the world.
       </h1>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 mt-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 mt-8">
         {error ? (
           <p className="text-red-500 text-lg font-semibold">{error}</p>
-        ) : weather.length > 0 ? (
-          weather.map((weather, index) => (
-            <WeatherCard
-              key={index}
-              city={weather.name}
-              country={weather.sys.country}
-              temperature={weather.main.temp}
-              weatherIcon={`https://openweathermap.org/img/wn/${weather.weather[0].icon}.png`}
-              description={weather.weather[0].description}
-              unit="metric"
-            />
-          ))
         ) : (
-          <p className="text-lg animate-pulse">Loading weather data...</p>
+          weather.map((data, index) => (
+            <WeatherCard key={index} isLoading={!data} weatherData={data} />
+          ))
         )}
       </div>
     </div>
   );
 }
-

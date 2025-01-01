@@ -13,7 +13,7 @@ export default function RootLayout({ children }) {
           <div className="relative min-h-screen overflow-hidden">
             <div className="absolute inset-0 -z-10">
               <Image
-                src="/assets/bg-image1.jpg"
+                src="/assets/bg-image6.jpg"
                 alt="Background"
                 className="w-full h-full"
                 fill
