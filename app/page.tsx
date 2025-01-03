@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import WeatherCard from '../components/WeatherCard';
+import Link from 'next/link';
 
 interface WeatherData {
   name: string;
@@ -86,6 +87,16 @@ export default function LandingPage() {
       <h1 className="max-w-xl lg:max-w-4xl mx-4 text-center text-3xl md:text-4xl lg:text-6xl text-white font-semibold">
         Explore the <span className='text-blue-400 font-bold'>weather</span> across different <span className='text-blue-400'>regions</span> and <span className='text-blue-400'>zones</span> of the world.
       </h1>
+
+     <div className='flex items-center mt-10 space-y-2 flex-col'>
+        <h2 className='max-w-xl text-center text-white mx-4 text-lg lg:text-2xl'>Sign in to get started and access search functionality and save your preferences</h2>
+        <Link 
+        className='border rounded p-2 bg-blue-400 text-white font-semibold hover:font-bold text-lg'
+        href="/api/auth/login"
+        >Get Started
+        </Link>
+     </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:grid-cols-3 mt-8">
         {error ? (
           <p className="text-red-500 text-lg font-semibold">{error}</p>

@@ -41,7 +41,7 @@ const NavBar = () => {
               <li>
                 <AnchorLink
                   href="/api/auth/login"
-                  className="text-white text-lg md:text-2xl font-bold bg-gray-600 px-4 py-2 rounded-md md:hover:bg-blue-700"
+                  className="text-white text-lg md:text-2xl font-bold bg-gray-600 px-4 py-2 rounded-md md:hover:bg-blue-400"
                   testId="navbar-login"
                 >
                   Join
