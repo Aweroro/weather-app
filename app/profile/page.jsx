@@ -1,9 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0/client';
-
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage';
 import Highlight from '../../components/Highlight';
@@ -18,9 +18,10 @@ function Profile() {
         <>
           <Row className="align-items-center profile-header mb-5 text-center text-md-left" data-testid="profile">
             <Col md={2}>
-              <img
+              <Image
                 src={user.picture}
                 alt="Profile"
+                fill
                 className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
                 decode="async"
                 data-testid="profile-picture"

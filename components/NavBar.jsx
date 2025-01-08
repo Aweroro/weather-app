@@ -54,6 +54,8 @@ const NavBar = () => {
                   <Image
                     src={user.picture}
                     alt="Profile"
+                    width={20}
+                    height={20}
                     className="w-10 h-10 rounded-full"
                     data-testid="navbar-picture"
                   />

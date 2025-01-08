@@ -60,7 +60,7 @@ export default function LandingPage() {
       const randomCity1 = randomCities[Math.floor(Math.random() * randomCities.length)];
       const randomCity2 = randomCities[Math.floor(Math.random() * randomCities.length)];
 
-      const weatherData = [...weather]; // Create a copy to update state incrementally
+      const weatherData = [...weather]; 
 
       const userWeather = await fetchWeatherByLocation(userLocation.lat, userLocation.lon);
       if (userWeather) weatherData[0] = userWeather;
