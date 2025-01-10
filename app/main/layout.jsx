@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import NavBar from '../../components/NavBar';
 import React from 'react';
 import { UserProvider } from '@auth0/nextjs-auth0/client';

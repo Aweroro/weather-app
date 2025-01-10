@@ -20,7 +20,7 @@ const NavBar = () => {
           <ul className="md:flex md:items-center space-y-4 md:space-y-0 md:space-x-6">
             {user && (
               <>
-                <li>
+                {/* <li>
                   <PageLink href="/csr" className="text-gray-700 hover:text-gray-900" testId="navbar-csr">
                     Client-side Rendered
                   </PageLink>
@@ -34,13 +34,13 @@ const NavBar = () => {
                   <PageLink href="/external" className="text-gray-700 hover:text-gray-900" testId="navbar-external">
                     External API
                   </PageLink>
-                </li>
+                </li> */}
               </>
             )}
             {!isLoading && !user && (
               <li>
                 <AnchorLink
-                  href="/api/auth/login"
+                  href="/api/auth/login?returnTo=/main"
                   className="text-white text-lg md:text-2xl font-bold bg-gray-600 px-4 py-2 rounded-md md:hover:bg-blue-400"
                   testId="navbar-login"
                 >

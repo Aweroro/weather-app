@@ -92,7 +92,7 @@ export default function LandingPage() {
         <h2 className='max-w-xl text-center text-white mx-4 text-lg lg:text-2xl'>Sign in to get started and access search functionality and save your preferences</h2>
         <Link 
         className='border rounded p-2 bg-blue-400 text-white font-semibold hover:font-bold text-lg'
-        href="/api/auth/login"
+        href="/api/auth/login?returnTo=/main"
         >Get Started
         </Link>
      </div>
