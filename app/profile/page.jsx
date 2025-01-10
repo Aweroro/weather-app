@@ -21,7 +21,8 @@ function Profile() {
               <Image
                 src={user.picture}
                 alt="Profile"
-                fill
+                width={20}
+                height={20}
                 className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
                 decode="async"
                 data-testid="profile-picture"
