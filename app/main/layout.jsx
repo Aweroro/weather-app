@@ -17,7 +17,6 @@ export default function RootLayout({ children }) {
             />
           </div>
           <main id="app" className="relative flex flex-col min-h-screen">
-            {/* <NavBar /> */}
             <div className="flex-grow mt-24">{children}</div>
           </main>
         </UserProvider>
