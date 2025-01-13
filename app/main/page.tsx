@@ -27,20 +27,26 @@ const WeatherSearch: React.FC = () => {
   const [locationSuggestions, setLocationSuggestions] = useState<LocationSuggestion[]>([]);
   const [favoriteLimitError, setFavoriteLimitError] = useState<string>('');
 
-  const suggestionsRef = useRef<HTMLDivElement | null>(null); // Ref for suggestions dropdown
+  const suggestionsRef = useRef<HTMLDivElement | null>(null); 
 
   useEffect(() => {
-    const savedFavorites = localStorage.getItem('favoriteCities');
-    if (savedFavorites) {
-      setFavoriteCities(JSON.parse(savedFavorites));
+    try {
+      const savedFavorites = JSON.parse(localStorage.getItem("favoriteCities") || "[]");
+      setFavoriteCities(savedFavorites);
+      console.log("Loaded favorites:", savedFavorites);
+    } catch (error) {
+      console.error("Failed to parse favorites from localStorage", error);
+      setFavoriteCities([]);
     }
   }, []);
-
+  
   useEffect(() => {
-    localStorage.setItem('favoriteCities', JSON.stringify(favoriteCities));
+    if (favoriteCities.length) {
+      localStorage.setItem("favoriteCities", JSON.stringify(favoriteCities));
+      console.log("Favorites saved:", favoriteCities);
+    }
   }, [favoriteCities]);
 
-  // Fetch location suggestions
   const fetchSuggestions = async (query: string) => {
     try {
       const response = await axios.get(
@@ -55,7 +61,6 @@ const WeatherSearch: React.FC = () => {
     }
   };
 
-  // Handle city search
   const handleSearch = async (city: string) => {
     setSearchQuery(city);
     setLocationSuggestions([]);
@@ -75,7 +80,6 @@ const WeatherSearch: React.FC = () => {
     }
   };
 
-  // Add city to favorites
   const addToFavorites = (city: string) => {
     if (favoriteCities.length >= 5) {
       setFavoriteLimitError('You can only have up to 5 favorite cities.');
@@ -87,12 +91,10 @@ const WeatherSearch: React.FC = () => {
     }
   };
 
-  // Remove city from favorites
   const removeFromFavorites = (city: string) => {
     setFavoriteCities(favoriteCities.filter((favorite) => favorite !== city));
   };
 
-  // Handle input change
   const handleQueryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     if (e.target.value.length > 2) {
@@ -100,7 +102,6 @@ const WeatherSearch: React.FC = () => {
     }
   };
 
-  // Close suggestions when clicking outside
   const handleClickOutside = (e: MouseEvent) => {
     if (suggestionsRef.current && !suggestionsRef.current.contains(e.target as Node)) {
       setLocationSuggestions([]);
@@ -118,6 +119,8 @@ const WeatherSearch: React.FC = () => {
   if (userLoading || !user) {
     return <Spinner />;
   }
+
+  console.log("Favorites saved:", JSON.parse(localStorage.getItem("favoriteCities") || "[]"));
 
   return (
     <div className="max-w-lg mx-auto mt-6">
@@ -162,7 +165,7 @@ const WeatherSearch: React.FC = () => {
       {weatherData && (
         <button
           onClick={() => addToFavorites(weatherData.name)}
-          className="mt-4 bg-green-500 text-white p-2 rounded hover:bg-green-600"
+          className="mt-4 bg-slate-500 text-white p-2 rounded hover:bg-blue-600"
         >
           Add to Favorites
         </button>
