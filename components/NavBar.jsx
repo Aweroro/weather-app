@@ -58,7 +58,7 @@ const NavBar = () => {
                     className="w-10 h-10 rounded-full"
                     data-testid="navbar-picture"
                   />
-                  <span className='font-bold text-lg'>{user.name}</span>
+                  <span className='font-bold hidden md:inline-block text-lg'>{user.name}</span>
                   <svg
                     className={`w-5 h-5 transform ${dropdownOpen ? 'rotate-180' : 'rotate-0'}`}
                     fill="none"
@@ -71,13 +71,8 @@ const NavBar = () => {
                 </button>
                 {dropdownOpen && (
                   <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-md text-gray-700 z-10">
-                    {/* <li className="px-4 py-2 hover:bg-gray-100">
-                      <PageLink href="/profile" testId="navbar-profile">
-                        Profile
-                      </PageLink>
-                    </li> */}
                     <li className="px-4 py-2 hover:bg-gray-100">
-                      <AnchorLink href="/api/auth/logout" testId="navbar-logout">
+                      <AnchorLink href="/api/auth/logout" testId="navbar-logout" className="text-xs text-nowrap md:text-base">
                         Log out
                       </AnchorLink>
                     </li>

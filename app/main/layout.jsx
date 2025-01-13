@@ -12,12 +12,12 @@ export default function RootLayout({ children }) {
             <Image
               src="/assets/bg-image3.jpg"
               alt="Background"
-              className="object-cover w-full h-full"
+              className="w-full h-full"
               fill
             />
           </div>
           <main id="app" className="relative flex flex-col min-h-screen">
-            <div className="flex-grow mt-24">{children}</div>
+            <div className="flex-grow mt-4 md:mt-12">{children}</div>
           </main>
         </UserProvider>
       </div>

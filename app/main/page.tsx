@@ -123,7 +123,7 @@ const WeatherSearch: React.FC = () => {
   console.log("Favorites saved:", JSON.parse(localStorage.getItem("favoriteCities") || "[]"));
 
   return (
-    <div className="max-w-lg mx-auto mt-6">
+    <div className="max-w-lg py-10 mx-10 md:mx-auto md:mt-6">
       <div className="mb-4 relative">
         <input
           type="text"
@@ -156,24 +156,26 @@ const WeatherSearch: React.FC = () => {
       {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
       {favoriteLimitError && <p className="text-red-500 mt-2">{favoriteLimitError}</p>}
 
+     <div className='flex flex-col'>
       {weatherData && (
-        <div className="flex justify-center mt-4">
-          <WeatherCard isLoading={isLoading} weatherData={weatherData} />
-        </div>
-      )}
+          <div className="flex justify-center mt-4">
+            <WeatherCard isLoading={isLoading} weatherData={weatherData} />
+          </div>
+        )}
 
-      {weatherData && (
-        <button
-          onClick={() => addToFavorites(weatherData.name)}
-          className="mt-4 bg-slate-500 text-white p-2 rounded hover:bg-blue-600"
-        >
-          Add to Favorites
-        </button>
-      )}
+        {weatherData && (
+          <button
+            onClick={() => addToFavorites(weatherData.name)}
+            className="mt-4 mx-auto bg-slate-500 text-white text-sm md:text-base p-2 rounded hover:bg-blue-600"
+          >
+            Add to Favorites
+          </button>
+        )}
+     </div>
 
       {favoriteCities.length > 0 && (
         <div className="mt-8">
-          <h3 className="text-xl font-bold mb-4">Favorite Cities</h3>
+          <h3 className="text-xl text-white font-bold mb-4">Favorite Cities</h3>
           <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {favoriteCities.map((city) => (
               <li key={city} className="flex justify-between items-center bg-gray-100 p-2 rounded">
